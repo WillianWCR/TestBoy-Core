@@ -15,6 +15,16 @@ class TestBoyCore{
         this.options.baseApiUrl = options.baseApiUrl || 'https://api.telegram.org';
     }
 
+    /**
+     * Creates the Base URL for API Calls
+     * @param {String} path
+     * @return {String} url
+     * @private
+     */
+    _baseUrl(path = ''){
+        return `${this.options.baseApiUrl}/bot${this.token}/${path}`;
+    }
+
 }
 
 /* Exports */
