@@ -1,0 +1,22 @@
+{
+  "name": "testboy-core",
+  "version": "1.0.0",
+  "description": "Telegram Bot Core in Node.js",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WillianWCR/TestBoy-Core.git"
+  },
+  "author": "Willian Rodrigues <willian@willianwcr.com.br>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WillianWCR/TestBoy-Core/issues"
+  },
+  "homepage": "https://github.com/WillianWCR/TestBoy-Core#readme"
+}
