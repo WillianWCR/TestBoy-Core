@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node test/index.js"
+    "test": "nodemon test/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "got": "^11.7.0"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.5"
   }
 }

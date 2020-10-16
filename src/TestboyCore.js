@@ -28,6 +28,7 @@ class TestboyCore{
                 this.baseUrl(path),
                 new URLSearchParams(options)
             );
+            return JSON.parse(response.body);
         }catch(error){
             console.log(error.response.body);
         }
