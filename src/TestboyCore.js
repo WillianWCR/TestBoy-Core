@@ -1,8 +1,10 @@
 
-class TestBoyCore{
+const TestboyPollingCore = require('./TestboyPollingCore');
+
+class TestboyCore{
 
     /**
-     * @class TestBoyCore
+     * @class TestboyCore
      * @constructor
      * @param {String} token Bot Token
      * @param {Object} [options] Custom options
@@ -28,4 +30,4 @@ class TestBoyCore{
 }
 
 /* Exports */
-module.exports = TestBoyCore;
+module.exports = TestboyCore;

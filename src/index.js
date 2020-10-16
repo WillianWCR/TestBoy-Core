@@ -1,3 +1,3 @@
-const Core = require('./Core');
+const Core = require('./TestboyCore');
 
 module.exports = Core;
