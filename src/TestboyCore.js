@@ -18,7 +18,7 @@ class TestboyCore{
     }
 
     /**
-     * 
+     * Make requests to the API
      * @param {String} _path 
      * @param {Object} [options] 
      */
@@ -44,7 +44,7 @@ class TestboyCore{
     }
 
     /**
-     * 
+     * Make request to the API searching for updates
      * @param {Object} [options] 
      * @param {Number} timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling.
      * @param {Number} limit Limits the number of updates to be retrieved.
