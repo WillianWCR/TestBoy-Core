@@ -8,12 +8,16 @@ class TestboyCore{
      * @constructor
      * @param {String} token Bot Token
      * @param {Object} [options] Custom options
+     * @param {Boolean|Object} [options.polling=false] Set true to enable polling or set options.
+     * @param {Boolean|Object} [options.webHook=false] Set true to enable webHook or set options.
      * @param {String} [options.baseApiUrl="https://api.telegram.org"] Change the base API URL
      * @see https://core.telegram.org/bots/api
      */
     constructor(token, options = {}){
         this.token = token;
         this.options = options;
+        this.options.polling = (typeof options.polling === 'undefined') ? false : options.polling;
+        this.options.webHook = (typeof options.webHook === 'undefined') ? false : options.webHook;
         this.options.baseApiUrl = options.baseApiUrl || 'https://api.telegram.org';
     }
 
@@ -60,7 +64,6 @@ class TestboyCore{
             offset,
         });
     }
-
 }
 
 /* Exports */
