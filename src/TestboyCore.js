@@ -19,13 +19,13 @@ class TestboyCore{
 
     /**
      * Make requests to the API
-     * @param {String} _path 
+     * @param {String} path 
      * @param {Object} [options] 
      */
-    async _request(_path, options = {}){
+    async request(path, options = {}){
         try{
             const response = await got.post(
-                this._baseUrl(_path),
+                this.baseUrl(path),
                 new URLSearchParams(options)
             );
         }catch(error){
@@ -35,12 +35,12 @@ class TestboyCore{
 
     /**
      * Creates the Base URL for API Calls
-     * @param {String} _path
+     * @param {String} path
      * @return {String} url
      * @private
      */
-    _baseUrl(_path = ''){
-        return `${this.options.baseApiUrl}/bot${this.token}/${_path}`;
+    baseUrl(path = ''){
+        return `${this.options.baseApiUrl}/bot${this.token}/${path}`;
     }
 
     /**
@@ -51,9 +51,9 @@ class TestboyCore{
      * @param {Number} offset Identifier of the first update to be returned.
      * @see https://core.telegram.org/bots/api#getupdates
      */
-    _getUpdates(options = {}){
+    getUpdates(options = {}){
         var {timeout, limit, offset} = options;
-        return this._request('getUpdates', {
+        return this.request('getUpdates', {
             timeout,
             limit,
             offset,
