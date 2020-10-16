@@ -1,4 +1,4 @@
-
+const got = require('got');
 const TestboyPollingCore = require('./TestboyPollingCore');
 
 class TestboyCore{
@@ -18,13 +18,29 @@ class TestboyCore{
     }
 
     /**
+     * 
+     * @param {String} _path 
+     * @param {Object} [options] 
+     */
+    async _request(_path, options = {}){
+        try{
+            const response = await got.post(
+                this._baseUrl(_path),
+                new URLSearchParams(options)
+            );
+        }catch(error){
+            console.log(error.response.body);
+        }
+    }
+
+    /**
      * Creates the Base URL for API Calls
-     * @param {String} path
+     * @param {String} _path
      * @return {String} url
      * @private
      */
-    _baseUrl(path = ''){
-        return `${this.options.baseApiUrl}/bot${this.token}/${path}`;
+    _baseUrl(_path = ''){
+        return `${this.options.baseApiUrl}/bot${this.token}/${_path}`;
     }
 
     /**

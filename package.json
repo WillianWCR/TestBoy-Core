@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/WillianWCR/TestBoy-Core/issues"
   },
-  "homepage": "https://github.com/WillianWCR/TestBoy-Core#readme"
+  "homepage": "https://github.com/WillianWCR/TestBoy-Core#readme",
+  "dependencies": {
+    "got": "^11.7.0"
+  }
 }
