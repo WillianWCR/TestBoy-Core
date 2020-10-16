@@ -27,6 +27,23 @@ class TestboyCore{
         return `${this.options.baseApiUrl}/bot${this.token}/${path}`;
     }
 
+    /**
+     * 
+     * @param {Object} [options] 
+     * @param {Number} timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling.
+     * @param {Number} limit Limits the number of updates to be retrieved.
+     * @param {Number} offset Identifier of the first update to be returned.
+     * @see https://core.telegram.org/bots/api#getupdates
+     */
+    _getUpdates(options = {}){
+        var {timeout, limit, offset} = options;
+        return this._request('getUpdates', {
+            timeout,
+            limit,
+            offset,
+        });
+    }
+
 }
 
 /* Exports */
