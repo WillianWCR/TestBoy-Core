@@ -1,0 +1,11 @@
+{
+    "name": "willianwcr/testboy-core",
+    "description": "Telegram Bot Core in Node.js",
+    "authors": [
+        {
+            "name": "Willian Rodrigues",
+            "email": "willian@willianwcr.com.br"
+        }
+    ],
+    "require": {}
+}
