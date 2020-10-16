@@ -21,5 +21,8 @@
   "homepage": "https://github.com/WillianWCR/TestBoy-Core#readme",
   "dependencies": {
     "got": "^11.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
   }
 }
