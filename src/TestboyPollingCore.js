@@ -30,7 +30,7 @@ class TestboyPollingCore {
     }
 
     async _getUpdates(){
-        this.debug("Getting updates");
+        this.debug("Asking to get updates");
         return await this.bot.getUpdates();
     }
 

@@ -23,6 +23,9 @@ class TestboyCore{
         this.options.webHook = (typeof options.webHook === 'undefined') ? false : options.webHook;
         this.options.baseApiUrl = options.baseApiUrl || 'https://api.telegram.org';
 
+        //Create empty debug function
+        this.debug = ()=>{};
+        //Check if debug is enable
         if(this.options.debug){
             this.debug = debug('TestboyCore');
             debug.enable('*');
@@ -42,12 +45,12 @@ class TestboyCore{
      */
     async request(path, options = {}){
         try{
-            this.debug('Requesting', path, options);
+            this.debug('Request:', path);
             const response = await got.post(
                 this.baseUrl(path),
                 new URLSearchParams(options)
             );
-            this.debug('Request response', response.body);
+            this.debug('Request response:', response.statusCode);
             return JSON.parse(response.body);
         }catch(error){
             this.debug(error.response.body);
@@ -57,8 +60,8 @@ class TestboyCore{
     /**
      * Creates the Base URL for API Calls
      * @param {String} path
-     * @return {String} url
      * @private
+     * @return {String} url
      */
     baseUrl(path = ''){
         return `${this.options.baseApiUrl}/bot${this.token}/${path}`;
@@ -73,7 +76,7 @@ class TestboyCore{
      * @see https://core.telegram.org/bots/api#getupdates
      */
     async getUpdates(options = {}){
-        this.debug('Getting updates', options);
+        this.debug('Getting updates');
         var {timeout, limit, offset} = options;
         return await this.request('getUpdates', {
             timeout,
@@ -82,6 +85,11 @@ class TestboyCore{
         });
     }
 
+    /**
+     * 
+     * @param {Object} options 
+     * @returns {Promise}
+     */
     startPolling(options = {}){
         this.debug('Start Polling');
         if(!this._polling){

@@ -1,8 +1,8 @@
 require('dotenv').config();
 
-const TelegramBot = require('..');
+const Testboy = require('..');
 
-const bot = new TelegramBot(process.env.botToken, {
+const bot = new Testboy(process.env.botToken, {
     'polling': true,
     'debug': true
 });
