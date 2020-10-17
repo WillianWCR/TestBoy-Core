@@ -45,10 +45,12 @@ class TestboyCore{
      * @returns {Promise}
      */
     request(path, options = {}){
-        this.debug('Request:', path);
+        this.debug('Request:', path, options);
         return got.post(
             this.baseUrl(path),
-            new URLSearchParams(options)
+            {
+                searchParams: new URLSearchParams(options)
+            }
         ).then(response => {
             let data;
             try{
@@ -111,7 +113,11 @@ class TestboyCore{
      * @param {Object} update 
      */
     proccessUpdate(update){
-        this.debug('Proccess Update', update);
+        this.debug('Proccess Update', update.update_id);
+        this.request('sendMessage', {
+            chat_id: 180310752,
+            text: update.update_id
+        });
     }
 }
 
