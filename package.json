@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "nodemon test/index.js"
+    "test": "node test/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/WillianWCR/TestBoy-Core#readme",
   "dependencies": {
-    "got": "^11.7.0"
+    "got": "^11.7.0",
+    "debug": "^4.2.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
-    "nodemon": "^2.0.5"
+    "dotenv": "^8.2.0"
   }
 }

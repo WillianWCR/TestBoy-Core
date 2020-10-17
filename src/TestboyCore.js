@@ -1,4 +1,5 @@
 const got = require('got');
+const debug = require('debug');
 const TestboyPollingCore = require('./TestboyPollingCore');
 
 class TestboyCore{
@@ -10,6 +11,7 @@ class TestboyCore{
      * @param {Object} [options] Custom options
      * @param {Boolean|Object} [options.polling=false] Set true to enable polling or set options.
      * @param {Boolean|Object} [options.webHook=false] Set true to enable webHook or set options.
+     * @param {Boolean} [options.debug=false] Set true to enable debug
      * @param {String} [options.baseApiUrl="https://api.telegram.org"] Change the base API URL
      * @see https://core.telegram.org/bots/api
      */
@@ -17,8 +19,20 @@ class TestboyCore{
         this.token = token;
         this.options = options;
         this.options.polling = (typeof options.polling === 'undefined') ? false : options.polling;
+        this.options.debug = (typeof options.debug === 'undefined') ? false : options.debug;
         this.options.webHook = (typeof options.webHook === 'undefined') ? false : options.webHook;
         this.options.baseApiUrl = options.baseApiUrl || 'https://api.telegram.org';
+
+        if(this.options.debug){
+            this.debug = debug('TestboyCore');
+            debug.enable('*');
+            this.debug('Enable debug!');
+        }
+
+        if(options.polling){
+            this.startPolling();
+        }
+
     }
 
     /**
@@ -28,13 +42,15 @@ class TestboyCore{
      */
     async request(path, options = {}){
         try{
+            this.debug('Requesting', path, options);
             const response = await got.post(
                 this.baseUrl(path),
                 new URLSearchParams(options)
             );
+            this.debug('Request response', response.body);
             return JSON.parse(response.body);
         }catch(error){
-            console.log(error.response.body);
+            this.debug(error.response.body);
         }
     }
 
@@ -56,13 +72,22 @@ class TestboyCore{
      * @param {Number} offset Identifier of the first update to be returned.
      * @see https://core.telegram.org/bots/api#getupdates
      */
-    getUpdates(options = {}){
+    async getUpdates(options = {}){
+        this.debug('Getting updates', options);
         var {timeout, limit, offset} = options;
-        return this.request('getUpdates', {
+        return await this.request('getUpdates', {
             timeout,
             limit,
             offset,
         });
+    }
+
+    startPolling(options = {}){
+        this.debug('Start Polling');
+        if(!this._polling){
+            this._polling = new TestboyPollingCore(this);
+        }
+        return this._polling.start(options);
     }
 }
 
