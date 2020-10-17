@@ -22,16 +22,21 @@ class TestboyPollingCore {
 
     async _polling(){
         this.debug("Polling");
-        try{
-            this._lastRequest = await this._getUpdates();
-        }catch(error){
+        this._getUpdates()
+        .then(updates => {
+            updates.forEach(update => {
+                this.debug('Asking to proccess update');
+                this.bot.proccessUpdate(update);
+            });
+        })
+        .catch(error => {
             this.debug(error);
-        }
+        });
     }
 
-    async _getUpdates(){
+    _getUpdates(){
         this.debug("Asking to get updates");
-        return await this.bot.getUpdates();
+        return this.bot.getUpdates();
     }
 
 }

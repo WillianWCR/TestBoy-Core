@@ -41,20 +41,28 @@ class TestboyCore{
     /**
      * Make requests to the API
      * @param {String} path 
-     * @param {Object} [options] 
+     * @param {Object} [options]
+     * @returns {Promise}
      */
-    async request(path, options = {}){
-        try{
-            this.debug('Request:', path);
-            const response = await got.post(
-                this.baseUrl(path),
-                new URLSearchParams(options)
-            );
-            this.debug('Request response:', response.statusCode);
-            return JSON.parse(response.body);
-        }catch(error){
+    request(path, options = {}){
+        this.debug('Request:', path);
+        return got.post(
+            this.baseUrl(path),
+            new URLSearchParams(options)
+        ).then(response => {
+            let data;
+            try{
+                data = JSON.parse(response.body);
+            }catch(error){
+                this.debug(error);
+            }
+            
+            if(data.ok){
+                return data.result;
+            }
+        }).catch(error => {
             this.debug(error.response.body);
-        }
+        });
     }
 
     /**
@@ -75,10 +83,10 @@ class TestboyCore{
      * @param {Number} offset Identifier of the first update to be returned.
      * @see https://core.telegram.org/bots/api#getupdates
      */
-    async getUpdates(options = {}){
+    getUpdates(options = {}){
         this.debug('Getting updates');
         var {timeout, limit, offset} = options;
-        return await this.request('getUpdates', {
+        return this.request('getUpdates', {
             timeout,
             limit,
             offset,
@@ -96,6 +104,14 @@ class TestboyCore{
             this._polling = new TestboyPollingCore(this);
         }
         return this._polling.start(options);
+    }
+
+    /**
+     * 
+     * @param {Object} update 
+     */
+    proccessUpdate(update){
+        this.debug('Proccess Update', update);
     }
 }
 
