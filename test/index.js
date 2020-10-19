@@ -11,7 +11,11 @@ const bot = new Testboy(process.env.botToken, {
     debug: true
 });
 
-bot.request('sendMessage', {
-    chat_id: 180310752,
-    text: 'teste'
+bot.on('message.text', (message) => {
+    bot.debug(message.from.id, message.text);
+    bot.request('sendMessage', {
+        chat_id: message.chat.id,
+        text: message.text,
+        reply_to_message_id: message.message_id
+    })
 });

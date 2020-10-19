@@ -1,8 +1,9 @@
 const got = require('got');
 const debug = require('debug');
 const TestboyPollingCore = require('./TestboyPollingCore');
+const TestboyEventCore = require('./TestboyEventCore');
 
-class TestboyCore{
+class TestboyCore extends TestboyEventCore{
 
     /**
      * @class TestboyCore
@@ -16,7 +17,8 @@ class TestboyCore{
      * @see https://core.telegram.org/bots/api
      */
     constructor(token, options = {}){
-        this.token = token;
+        super();
+        this.token = token; //TODO: #1 Create verify method to check if the token is valid
         this.options = options;
         this.options.polling = (typeof options.polling === 'undefined') ? false : options.polling;
         this.options.debug = (typeof options.debug === 'undefined') ? false : options.debug;
@@ -36,6 +38,8 @@ class TestboyCore{
             this.startPolling();
         }
 
+        //this.event = new TestboyEventCore();
+
     }
 
     /**
@@ -45,7 +49,7 @@ class TestboyCore{
      * @returns {Promise}
      */
     request(path, options = {}){
-        this.debug('Request:', path, options);
+        //this.debug('Request:', path, options);
         return got.post(
             this.baseUrl(path),
             {
@@ -86,7 +90,7 @@ class TestboyCore{
      * @see https://core.telegram.org/bots/api#getupdates
      */
     getUpdates(options = {}){
-        this.debug('Getting updates');
+        //this.debug('Getting updates');
         var {timeout, limit, offset} = options;
         return this.request('getUpdates', {
             timeout,
@@ -113,11 +117,22 @@ class TestboyCore{
      * @param {Object} update 
      */
     proccessUpdate(update){
-        this.debug('Proccess Update', update.update_id);
-        this.request('sendMessage', {
-            chat_id: 180310752,
-            text: update.update_id
-        });
+        //this.debug('Proccess Update', update.update_id);
+        const message = update.message;
+        const edited_message = update.edited_message;
+        const channel_post = update.channel_post;
+        const edited_channel_post = update.edited_channel_post;
+        const inline_query = update.inline_query;
+        const chosen_inline_result = update.chosen_inline_result;
+        const callback_query = update.callback_query;
+        const shipping_query = update.shipping_query;
+        const pre_checkout_query = update.pre_checkout_query;
+        const poll = update.poll;
+        const poll_answer = update.poll_answer;
+
+        if(message.text){
+            this.emit('message.text', message);
+        }
     }
 }
 

@@ -28,14 +28,14 @@ class TestboyPollingCore {
     }
 
     async _polling(){
-        this.debug("Polling");
+        //this.debug("Polling");
         this._lastRequest = this
         ._getUpdates()
         .then(updates => {
             this._lastUpdate = Date.now();
             updates.forEach(update => {
                 this.options.params.offset = update.update_id + 1;
-                this.debug('Asking to proccess update');
+                //this.debug('Asking to proccess update');
                 this.bot.proccessUpdate(update);
             });
             return null;
@@ -50,7 +50,7 @@ class TestboyPollingCore {
     }
 
     _getUpdates(){
-        this.debug("Asking to get updates", this.options.params);
+        //this.debug("Asking to get updates", this.options.params);
         return this.bot.getUpdates(this.options.params);
     }
 
