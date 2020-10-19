@@ -38,8 +38,6 @@ class TestboyCore extends TestboyEventCore{
             this.startPolling();
         }
 
-        //this.event = new TestboyEventCore();
-
     }
 
     /**
