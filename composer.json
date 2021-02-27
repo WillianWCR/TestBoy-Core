@@ -8,5 +8,5 @@
         }
     ],
     "require": {},
-    "minimum-stability": "dev-master"
+    "minimum-stability": "dev"
 }
