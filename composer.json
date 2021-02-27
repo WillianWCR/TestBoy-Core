@@ -1,6 +1,7 @@
 {
     "name": "willianwcr/testboy-core",
     "description": "Telegram Bot Core in Node.js",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Willian Rodrigues",
