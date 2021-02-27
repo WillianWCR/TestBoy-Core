@@ -7,5 +7,6 @@
             "email": "willian@willianwcr.com.br"
         }
     ],
-    "require": {}
+    "require": {},
+    "minimum-stability": "master"
 }

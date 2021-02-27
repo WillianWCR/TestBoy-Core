@@ -2,6 +2,7 @@ const got = require('got');
 const debug = require('debug');
 const TestboyPollingCore = require('./TestboyPollingCore');
 const TestboyEventCore = require('./TestboyEventCore');
+const TestboyMethods = require('./TestboyMethods');
 
 class TestboyCore extends TestboyEventCore{
 
@@ -37,6 +38,15 @@ class TestboyCore extends TestboyEventCore{
         if(options.polling){
             this.startPolling();
         }
+
+        //const methods = new TestboyMethods(this);
+
+        //Object.assign(this.methods, methods);
+
+        //console.log(methods.sendMessage());
+        //console.log(this);
+
+        //this.sendMessage();
 
     }
 
@@ -98,12 +108,12 @@ class TestboyCore extends TestboyEventCore{
     }
 
     /**
-     * 
+     * Import TestboyPollingCore, assign to TestboyCore and start Polling
      * @param {Object} options 
      * @returns {Promise}
      */
     startPolling(options = {}){
-        this.debug('Start Polling');
+        this.debug('Importing PollingCore');
         if(!this._polling){
             this._polling = new TestboyPollingCore(this);
         }
@@ -128,8 +138,13 @@ class TestboyCore extends TestboyEventCore{
         const poll = update.poll;
         const poll_answer = update.poll_answer;
 
-        if(message.text){
-            this.emit('message.text', message);
+        if(message){
+            if(message.text){
+                this.emit('message.text', message);
+            }
+        }
+        if(callback_query){
+
         }
     }
 }

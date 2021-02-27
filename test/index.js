@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const Testboy = require('..');
+const Testboy = require('../src/Testboy');
 
 const bot = new Testboy(process.env.botToken, {
     polling: {
@@ -28,6 +28,14 @@ bot.onText('oi', (message) => {
     });
 });
 
+bot.onText(/.*teste.*/, (message) => {
+    bot.request('sendMessage', {
+        chat_id: message.chat.id,
+        text: 'Você falou teste em algum lugar da mensagem',
+        reply_to_message_id: message.message_id
+    });
+});
+
 bot.onCommand('/teste', (message) => {
     if(message.outText){
         bot.request('sendMessage', {
@@ -42,4 +50,22 @@ bot.onCommand('/teste', (message) => {
             reply_to_message_id: message.message_id
         });
     }
+});
+
+bot.onCommand('/button', (message) => {
+    bot.request('sendMessage', {
+        chat_id: message.chat.id,
+        text: 'Tem parametro',
+        reply_to_message_id: message.message_id,
+        reply_markup: JSON.stringify({
+            inline_keyboard: [
+                [
+                    {
+                        'text': 'Clique aqui!',
+                        'callback_data': 'click-button'
+                    }
+                ]
+            ]
+        })
+    });
 });

@@ -1,4 +1,5 @@
 class TestboyEventCore{
+    //TODO #4 Add documentation in functions inside TestboyEventCore
 
     events = new Map();
 
@@ -22,6 +23,7 @@ class TestboyEventCore{
     }
 
     onCommand(command, callback){
+        //TODO #3 Check if the command is followed by a Bot username
         return this.on('message.text', (message) => {
             const commandText = message.text.split(' ')[0];
             message.outText = message.text.substring(commandText.length);

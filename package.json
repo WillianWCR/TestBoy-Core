@@ -2,7 +2,7 @@
   "name": "testboy-core",
   "version": "1.0.0",
   "description": "Telegram Bot Core in Node.js",
-  "main": "index.js",
+  "main": "./src/Testboy.js",
   "directories": {
     "test": "test"
   },
